@@ -1,0 +1,4 @@
+name: trivial-nginx
+runtime: nodejs
+description: Basic example of an Kubernetes sample based on \
+    https://kubernetes.io/docs/user-guide/walkthrough/

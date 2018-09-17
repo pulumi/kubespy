@@ -22,12 +22,12 @@ syntax-highlighted JSON diffs:
 Once installed, run the following:
 
 ```sh
-go get github.com/pulumi-labs/kubespy
-cd "$(go env GOPATH)/src/github.com/pulumi-labs/kubespy"
+go get github.com/pulumi/kubespy
+cd "$(go env GOPATH)/src/github.com/pulumi/kubespy"
 dep ensure
 
 # If $GOBIN is not on your path, you'll need to install the library elsewhere.
-go install github.com/pulumi-labs/cmd/kubespy
+go install github.com/pulumi/cmd/kubespy
 ```
 
 From here you can simply run `kubespy`.
@@ -42,6 +42,10 @@ From here you can simply run `kubespy`.
     field in a Kubernetes resource, as a JSON diff.
 
 Several more commands are planned as well.
+
+## Examples
+
+For a concrete example you can run using either Pulumi or `kubectl`, check out [examples/trivial-pulumi-example](https://github.com/pulumi/kubespy/tree/master/examples/trivial-pulumi-example).
 
 ## Features
 
