@@ -7,8 +7,8 @@ IP address? How often is a `Deployment`'s status changing?
 time.** Run `kubespy` at any point in time, and it will watch and report information about a
 Kubernetes resource continuously until you kill it.
 
-For example, the `kubespy status v1 Pod nginx` continuously the changes made to a `Pod`'s status as
-syntax-highlighted JSON diffs:
+For example, `kubespy status v1 Pod nginx` will continuously emit changes made to a `Pod`'s status
+as syntax-highlighted JSON diffs:
 
 ![Changes](images/status.gif "Changes a Pod undergoes as it starts, in real time")
 
