@@ -27,7 +27,7 @@ cd "$(go env GOPATH)/src/github.com/pulumi/kubespy"
 dep ensure
 
 # If $GOBIN is not on your path, you'll need to install the library elsewhere.
-go install github.com/pulumi/cmd/kubespy
+go install github.com/pulumi/kubespy/cmd/kubespy
 ```
 
 From here you can simply run `kubespy`.
