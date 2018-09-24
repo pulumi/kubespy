@@ -14,8 +14,12 @@ import (
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
 	"k8s.io/client-go/tools/clientcmd"
+
+	// Load auth plugins. Removing this will likely cause compilation error.
+	_ "k8s.io/client-go/plugin/pkg/client/auth"
 )
 
+// Forever will watch a resource forever, emitting `watch.Event` until it is killed.
 func Forever(apiVersion, kind, objID string) (<-chan watch.Event, error) {
 	disco, pool, err := makeClient()
 	if err != nil {
