@@ -22,7 +22,7 @@ as syntax-highlighted JSON diffs:
 Once installed, run the following:
 
 ```sh
-go get github.com/pulumi/kubespy
+go get github.com/pulumi/kubespy/...
 cd "$(go env GOPATH)/src/github.com/pulumi/kubespy"
 dep ensure
 

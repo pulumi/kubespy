@@ -24,7 +24,6 @@
 #   go-tests = true
 #   unused-packages = true
 
-
 [[constraint]]
   name = "github.com/pulumi/pulumi-kubernetes"
   version = "0.17.0"
@@ -32,6 +31,24 @@
 [[constraint]]
   name = "k8s.io/client-go"
   version = "7.0.0"
+
+# vendor/k8s.io/client-go/plugin/pkg/client/auth/azure/azure.go:300:25:
+# cannot call non-function spt.Token (type adal.Token)
+[[override]]
+  name = "github.com/Azure/go-autorest"
+  revision = "ab5671379918d9af294b6f0e3d8aaa98c829416d"
+
+# vendor/k8s.io/client-go/plugin/pkg/client/auth/azure/azure.go:300:25:
+# cannot call non-function spt.Token (type adal.Token)
+[[override]]
+  name = "k8s.io/kubernetes"
+  revision = "81753b10df112992bf51bbc2c2f85208aad78335"
+
+# vendor/k8s.io/client-go/plugin/pkg/client/auth/azure/azure.go:300:25:
+# cannot call non-function spt.Token (type adal.Token)
+[[override]]
+  name = "k8s.io/apimachinery"
+  revision = "302974c03f7e50f16561ba237db776ab93594ef6"
 
 [prune]
   go-tests = true
