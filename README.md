@@ -4,13 +4,20 @@ What happens when you boot up a `Pod`? What happens to a `Service` before it is 
 IP address? How often is a `Deployment`'s status changing?
 
 **`kubespy` is a small tool that makes it easy to observe how Kubernetes resources change in real
-time.** Run `kubespy` at any point in time, and it will watch and report information about a
+time,** derived from the work we did to make Kubernetes deployments predictable in [Pulumi's CLI](https://www.pulumi.com/kubernetes/). Run `kubespy` at any point in time, and it will watch and report information about a
 Kubernetes resource continuously until you kill it.
 
-For example, `kubespy status v1 Pod nginx` will continuously emit changes made to a `Pod`'s status
-as syntax-highlighted JSON diffs:
+## Examples
+
+`kubespy status v1 Pod nginx` will wait for a `Pod` called `nginx` to be created, and then continuously emit changes made to its `.status` field,as syntax-highlighted JSON diffs:
 
 ![Changes](images/status.gif "Changes a Pod undergoes as it starts, in real time")
+
+`kubespy trace service nginx` will "trace" the complex changes a complex Kubernetes resource makes
+in the cluster (in this case, a `Service` called `nginx`), and aggregate them into a high-level
+summary, which is updated in real time.
+
+![Changes](images/trace/trace-success.gif "Changes a Service undergoes as it starts, in real time")
 
 ## Installation
 
@@ -40,6 +47,9 @@ From here you can simply run `kubespy`.
     the `.status` field of an arbitrary Kubernetes resource, as a JSON diff.
 -   `changes <apiVersion> <kind> [<namespace>/]<name>`, which in real time emits all changes to any
     field in a Kubernetes resource, as a JSON diff.
+-   `trace <kind> [<namespace>/]<name>`, which "traces" the changes a complex Kubernetes resource
+    makes throughout a cluster, and aggregates them into a high-level summary, which is updated in
+    real time.
 
 Several more commands are planned as well.
 
