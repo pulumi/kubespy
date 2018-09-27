@@ -42,7 +42,7 @@ dep ensure
 go install github.com/pulumi/kubespy/cmd/kubespy
 ```
 
-Following either path, you can then simply run `kubespy`.
+Following either way, you can then simply run `kubespy`.
 
 ## Usage
 
