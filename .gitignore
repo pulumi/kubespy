@@ -6,3 +6,4 @@ Pulumi.*.yaml
 /pkg/gen/openapi-specs
 /pack/nodejs/bin
 /pack/nodejs/node_modules
+/go.sum

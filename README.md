@@ -23,15 +23,12 @@ summary, which is updated in real time.
 
 `kubespy` depends on:
 
--   [Go](https://golang.org/)
--   [`dep`](https://github.com/golang/dep)
+-   [Go](https://golang.org/) version 1.11 or later
 
 Once installed, run the following:
 
 ```sh
-go get github.com/pulumi/kubespy/...
-cd "$(go env GOPATH)/src/github.com/pulumi/kubespy"
-dep ensure
+export GO111MODULE=on
 
 # If $GOBIN is not on your path, you'll need to install the library elsewhere.
 go install github.com/pulumi/kubespy/cmd/kubespy
