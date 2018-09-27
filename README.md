@@ -9,7 +9,7 @@ Kubernetes resource continuously until you kill it.
 
 ## Examples
 
-`kubespy status v1 Pod nginx` will wait for a `Pod` called `nginx` to be created, and then continuously emit changes made to its `.status` field,as syntax-highlighted JSON diffs:
+`kubespy status v1 Pod nginx` will wait for a `Pod` called `nginx` to be created, and then continuously emit changes made to its `.status` field, as syntax-highlighted JSON diffs:
 
 ![Changes](images/status.gif "Changes a Pod undergoes as it starts, in real time")
 
@@ -21,12 +21,17 @@ summary, which is updated in real time.
 
 ## Installation
 
-`kubespy` depends on:
+Simply get the [latest release](https://github.com/pulumi/kubespy/releases), 
+rename it to `kubespy`, run `chmod +x kubespy`, and move it in your path (can be /usr/local/bin).
+
+or
+
+Install:
 
 -   [Go](https://golang.org/)
 -   [`dep`](https://github.com/golang/dep)
 
-Once installed, run the following:
+Once the above are installed, run the following:
 
 ```sh
 go get github.com/pulumi/kubespy/...
@@ -37,7 +42,7 @@ dep ensure
 go install github.com/pulumi/kubespy/cmd/kubespy
 ```
 
-From here you can simply run `kubespy`.
+Following either way, you can then simply run `kubespy`.
 
 ## Usage
 
