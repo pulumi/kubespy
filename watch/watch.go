@@ -51,7 +51,7 @@ func Forever(apiVersion, kind, objID string) (<-chan watch.Event, error) {
 		return nil, err
 	}
 
-	gvk := schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: kind}
+	gvk := schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: strings.Title(kind)}
 
 	namespace, name, err := parseObjID(objID)
 	if err != nil {
