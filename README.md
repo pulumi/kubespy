@@ -46,7 +46,7 @@ Following either way, you can then simply run `kubespy`.
 
 ## Usage
 
-`kubespy` has two commands:
+`kubespy` has three commands:
 
 -   `status <apiVersion> <kind> [<namespace>/]<name>`, which in real time emits all changes made to
     the `.status` field of an arbitrary Kubernetes resource, as a JSON diff.
