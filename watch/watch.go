@@ -10,6 +10,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/gosuri/uilive"
 	"github.com/pulumi/kubespy/pods"
+	"github.com/pulumi/kubespy/print"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -103,27 +104,27 @@ func PrintWatchTable(w *uilive.Writer, table map[string][]k8sWatch.Event) {
 		switch svcType {
 		case "ClusterIP":
 			if eps, hasEndpoints := table[v1Endpoints]; hasEndpoints && eps[0].Type != k8sWatch.Deleted {
-				printSuccessStatusEvent(w,
+				print.SuccessStatusEvent(w,
 					fmt.Sprintf("Successfully created Endpoints object '%s' to direct traffic to Pods",
 						cyanText.Sprint(o.GetName())))
 			} else {
-				printFailureStatusEvent(w, "Waiting for Endpoints object to be created, to direct traffic to Pods")
+				print.FailureStatusEvent(w, "Waiting for Endpoints object to be created, to direct traffic to Pods")
 			}
 
 			clusterIPI, _ := openapi.Pluck(o.Object, "spec", "clusterIP")
 			if clusterIP, isString := clusterIPI.(string); isString && len(clusterIP) > 0 {
-				printSuccessStatusEvent(w,
+				print.SuccessStatusEvent(w,
 					fmt.Sprintf("Successfully allocated a cluster-internal IP: %s",
 						cyanText.Sprint(o.GetName())))
 			} else {
-				printFailureStatusEvent(w, "Waiting for cluster-internal IP to be allocated")
+				print.FailureStatusEvent(w, "Waiting for cluster-internal IP to be allocated")
 			}
 		case "LoadBalancer":
 			if eps, hasEndpoints := table[v1Endpoints]; hasEndpoints && eps[0].Type != k8sWatch.Deleted {
-				printSuccessStatusEvent(w,
+				print.SuccessStatusEvent(w,
 					fmt.Sprintf("Successfully created Endpoints object '%s' to direct traffic to Pods", o.GetName()))
 			} else {
-				printFailureStatusEvent(w, "Waiting for Endpoints object to be created, to direct traffic to Pods")
+				print.FailureStatusEvent(w, "Waiting for Endpoints object to be created, to direct traffic to Pods")
 			}
 
 			ingressesI, _ := openapi.Pluck(o.Object, "status", "loadBalancer", "ingress")
@@ -151,18 +152,18 @@ func PrintWatchTable(w *uilive.Writer, table map[string][]k8sWatch.Event) {
 				if len(ips) > 0 {
 					sort.Strings(ips)
 					li := prefix + strings.Join(ips, prefix)
-					printSuccessStatusEvent(w, fmt.Sprintf("Service allocated the following IPs/hostnames:%s", li))
+					print.SuccessStatusEvent(w, fmt.Sprintf("Service allocated the following IPs/hostnames:%s", li))
 				}
 			} else {
-				printFailureStatusEvent(w, "Waiting for public IP/host to be allocated")
+				print.FailureStatusEvent(w, "Waiting for public IP/host to be allocated")
 			}
 
 		case "ExternalName":
 			externalNameI, _ := openapi.Pluck(o.Object, "spec", "externalName")
 			if externalName, isString := externalNameI.(string); isString && len(externalName) > 0 {
-				printSuccessStatusEvent(w, fmt.Sprintf("Service proxying to %s", cyanText.Sprint(externalName)))
+				print.SuccessStatusEvent(w, fmt.Sprintf("Service proxying to %s", cyanText.Sprint(externalName)))
 			} else {
-				printFailureStatusEvent(w, "Service not given a URI to proxy to in `.spec.externalName`")
+				print.FailureStatusEvent(w, "Service not given a URI to proxy to in `.spec.externalName`")
 			}
 		}
 	}
@@ -181,12 +182,12 @@ func PrintWatchTable(w *uilive.Writer, table map[string][]k8sWatch.Event) {
 
 		if len(unready) > 0 {
 			li := prefix + strings.Join(pods, prefix)
-			printFailureStatusEvent(w, fmt.Sprintf("Directs traffic to the following live Pods:%s", li))
+			print.FailureStatusEvent(w, fmt.Sprintf("Directs traffic to the following live Pods:%s", li))
 		} else if len(ready) > 0 {
 			li := prefix + strings.Join(pods, prefix)
-			printSuccessStatusEvent(w, fmt.Sprintf("Directs traffic to the following live Pods:%s", li))
+			print.SuccessStatusEvent(w, fmt.Sprintf("Directs traffic to the following live Pods:%s", li))
 		} else if len(unready) == 0 && len(ready) == 0 {
-			printFailureStatusEvent(w, fmt.Sprintf("Does not direct traffic to any Pods"))
+			print.FailureStatusEvent(w, fmt.Sprintf("Does not direct traffic to any Pods"))
 		}
 
 	} else if svcType != "ExternalName" {
@@ -238,14 +239,6 @@ func parseObjID(objID string) (string, string, error) {
 	}
 	return "", "", fmt.Errorf(
 		"Object ID must be of the form <name> or <namespace>/<name>, got: %s", objID)
-}
-
-func printSuccessStatusEvent(w io.Writer, message string) {
-	fmt.Fprintf(w, "    ✅ %s\n", message)
-}
-
-func printFailureStatusEvent(w io.Writer, message string) {
-	fmt.Fprintf(w, "    ❌ %s\n", message)
 }
 
 func watchEventHeader(w io.Writer, eventType k8sWatch.EventType, o *unstructured.Unstructured) {
