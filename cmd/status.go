@@ -14,7 +14,6 @@ import (
 )
 
 func init() {
-
 	rootCmd.AddCommand(statusCmd)
 }
 
