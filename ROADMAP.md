@@ -28,10 +28,10 @@ not experts.
 To make this tool effective for this audience it is critical that we make it simple to install and
 use:
 
--   Install must be turn-key on all common platforms. `brew`, `apt`, `choclatey`, and binary
+-   Install must be turn-key on all common platforms. `brew`, `apt`, `chocolatey`, and binary
     releases are a must.
 -   CLI experience must take a minimal amount of context to produce sensible output.
-    `kubectl status po` should work, as should `kubectl status v1 Pod`.
+    `kubespy status po` should work, as should `kubespy status v1 Pod`.
 -   Errors should prescribe action where appropriate.
 
 ## Expand `kubespy trace` to include all commonly-used "complex" types
