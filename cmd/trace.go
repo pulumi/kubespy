@@ -19,6 +19,11 @@ const (
 	v1Service   = "v1/Service"
 )
 
+
+func init() {
+	rootCmd.AddCommand(traceCmd)
+}
+
 var traceCmd = &cobra.Command{
 	Use:   "trace <type> [<namespace>/]<name>",
 	Short: "Traces status of complex API objects",
