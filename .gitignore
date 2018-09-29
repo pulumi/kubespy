@@ -7,3 +7,4 @@ Pulumi.*.yaml
 /pack/nodejs/bin
 /pack/nodejs/node_modules
 /go.sum
+kubespy
