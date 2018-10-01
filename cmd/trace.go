@@ -16,8 +16,11 @@ import (
 )
 
 const (
-	v1Endpoints = "v1/Endpoints"
-	v1Service   = "v1/Service"
+	v1Endpoints                 = "v1/Endpoints"
+	v1Service                   = "v1/Service"
+	v1Pod                       = "v1/Pod"
+	deployment                  = "Deployment"
+	extensionsV1Beta1ReplicaSet = "extensions/v1beta1/ReplicaSet"
 )
 
 func init() {
@@ -28,28 +31,38 @@ var traceCmd = &cobra.Command{
 	Use:   "trace <type> [<namespace>/]<name>",
 	Short: "Traces status of complex API objects",
 	Long: `Traces status of complex API objects. Accepted types are:
-  - service (aliases: {service, svc})`,
+  - service (aliases: {svc})
+  - deployment (aliases: {deploy})`,
 	Args: cobra.ExactArgs(2),
 	Run: func(cmd *cobra.Command, args []string) {
+		namespace, name, err := parseObjID(args[1])
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		switch t := strings.ToLower(args[0]); t {
 		case "service", "svc":
-			traceService(args[1])
+			traceService(namespace, name)
+		case "deployment", "deploy":
+			traceDeployment(namespace, name)
 		default:
 			msg := "Unknown resource type '%s'. The following resources are available:\n" +
-				"  - service (aliases: {service, svc})"
+				"  - service (aliases: {svc})" +
+				"  - deployment (aliases: {deploy})"
 			log.Fatalf(msg, t)
 		}
 	},
 }
 
-func traceService(objID string) {
-	serviceEvents, err := watch.Forever("v1", "Service", objID)
+func traceService(namespace, name string) {
+	serviceEvents, err := watch.Forever("v1", "Service", watch.ThisObject(namespace, name))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	endpointEvents, err := watch.Forever("v1", "Endpoints", objID)
+	// NOTE: We can use the same watch opts here because the `Endpoints` object will have the same
+	// name and be in the same namespace.
+	endpointEvents, err := watch.Forever("v1", "Endpoints", watch.ThisObject(namespace, name))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -60,7 +73,8 @@ func traceService(objID string) {
 	defer writer.Stop() // Flush buffers, stop rendering.
 
 	// Initial message.
-	fmt.Fprintln(writer, color.New(color.FgCyan, color.Bold).Sprintf("Waiting for Service '%s'", objID))
+	fmt.Fprintln(writer, color.New(color.FgCyan, color.Bold).Sprintf("Waiting for Service '%s/%s'",
+		namespace, name))
 	writer.Flush()
 
 	table := map[string][]k8sWatch.Event{}
@@ -87,14 +101,21 @@ func traceService(objID string) {
 	}
 }
 
-func traceDeployment(objID string) {
+func traceDeployment(namespace, name string) {
 	// API server should rewrite this to apps/v1beta2, apps/v1beta2, or apps/v1 as appropriate.
-	deploymentEvents, err := watch.Forever("extensions/v1beta1", "Deployment", objID)
+	deploymentEvents, err := watch.Forever("extensions/v1beta1", "Deployment",
+		watch.ThisObject(namespace, name))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	endpointEvents, err := watch.Forever("extensions/v1beta1", "ReplicaSet", objID)
+	replicaSetEvents, err := watch.Forever("extensions/v1beta1", "ReplicaSet",
+		watch.ObjectsOwnedBy(name))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	podEvents, err := watch.Forever("v1", "Pod", watch.All(namespace))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -105,10 +126,13 @@ func traceDeployment(objID string) {
 	defer writer.Stop() // Flush buffers, stop rendering.
 
 	// Initial message.
-	fmt.Fprintln(writer, color.New(color.FgCyan, color.Bold).Sprintf("Waiting for Deployment '%s'", objID))
+	fmt.Fprintln(writer, color.New(color.FgCyan, color.Bold).Sprintf("Waiting for Deployment '%s/%s'",
+		namespace, name))
 	writer.Flush()
 
-	table := map[string][]k8sWatch.Event{}
+	table := map[string][]k8sWatch.Event{} // apiVersion/Kind -> []k8sWatch.Event
+	repSets := map[string]k8sWatch.Event{} // Deployment name -> Pod
+	pods := map[string]k8sWatch.Event{}    // ReplicaSet name -> Pod
 
 	for {
 		select {
@@ -118,16 +142,31 @@ func traceDeployment(objID string) {
 				delete(o.Object, "spec")
 				delete(o.Object, "status")
 			}
-			table[v1Service] = []k8sWatch.Event{e}
-		case e := <-endpointEvents:
+			table[deployment] = []k8sWatch.Event{e}
+		case e := <-replicaSetEvents:
+			o := e.Object.(*unstructured.Unstructured)
 			if e.Type == k8sWatch.Deleted {
-				o := e.Object.(*unstructured.Unstructured)
-				delete(o.Object, "spec")
-				delete(o.Object, "status")
-				delete(o.Object, "subsets")
+				delete(repSets, o.GetName())
+			} else {
+				repSets[o.GetName()] = e
 			}
-			table[v1Endpoints] = []k8sWatch.Event{e}
+			table[extensionsV1Beta1ReplicaSet] = []k8sWatch.Event{}
+			for _, rsEvent := range repSets {
+				table[extensionsV1Beta1ReplicaSet] = append(table[extensionsV1Beta1ReplicaSet], rsEvent)
+			}
+		case e := <-podEvents:
+			o := e.Object.(*unstructured.Unstructured)
+			if e.Type == k8sWatch.Deleted {
+				delete(pods, o.GetName())
+			} else {
+				pods[o.GetName()] = e
+			}
+
+			table[v1Pod] = []k8sWatch.Event{}
+			for _, podEvent := range pods {
+				table[v1Pod] = append(table[v1Pod], podEvent)
+			}
 		}
-		print.ServiceWatchTable(writer, table)
+		print.DeploymentWatchTable(writer, table)
 	}
 }

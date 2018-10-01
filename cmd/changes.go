@@ -22,10 +22,16 @@ var changesCmd = &cobra.Command{
 	Short: "Displays changes made to a Kubernetes resource in real time. Emitted as JSON diffs",
 	Args:  cobra.ExactArgs(3),
 	Run: func(cmd *cobra.Command, args []string) {
-		events, err := watch.Forever(args[0], args[1], args[2])
+		namespace, name, err := parseObjID(args[2])
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		events, err := watch.Forever(args[0], args[1], watch.ThisObject(namespace, name))
+		if err != nil {
+			log.Fatal(err)
+		}
+
 		fmt.Println(color.GreenString("Watching for changes on %s %s %s", args[0], args[1], args[2]))
 
 		heading := color.New(color.FgBlue, color.Bold)
