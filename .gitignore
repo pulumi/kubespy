@@ -8,3 +8,4 @@ Pulumi.*.yaml
 /pack/nodejs/node_modules
 /go.sum
 kubespy
+releases
