@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/pulumi/kubespy/k8sobject"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
@@ -27,8 +28,64 @@ var (
 	redBoldText  = color.New(color.FgRed, color.Bold)
 )
 
+type watchType string
+
+const (
+	watchByName  watchType = "watchByName"
+	watchByOwner watchType = "watchByOwner"
+	watchAll     watchType = "watchAll"
+)
+
+// All configures a watch to look for all objects of a type in a namespace.
+func All(namespace string) Opts {
+	return Opts{watchType: watchAll, namespace: namespace}
+}
+
+// ThisObject configures a watch to look for an object specified by a name and a namespace.
+func ThisObject(namespace, name string) Opts {
+	return Opts{watchType: watchByName, namespace: namespace, name: name}
+}
+
+// ObjectsOwnedBy specifies a watch should look for objects owned by `ownerName`. Owner references
+// must refer to objects in the same namespace, so this function does not take `namespace` as an
+// argument.
+func ObjectsOwnedBy(ownerName string) Opts {
+	return Opts{watchType: watchByOwner, ownerName: ownerName}
+}
+
+// Opts specifies which objects to watch for (e.g., "called this" or "owned by x").
+type Opts struct {
+	watchType watchType
+
+	// (Optional) name of object to watch for.
+	name string
+
+	// (Optional) namespace in which to watch for objects.
+	namespace string
+
+	// (Optional) ID of object that owns the object we're watching for (e.g., ReplicaSet owned by
+	// some Deployment).
+	ownerName string
+}
+
+func (opts *Opts) Check(o *unstructured.Unstructured) bool {
+	switch opts.watchType {
+	case watchByName:
+		return o.GetName() == opts.name
+	case watchByOwner:
+		return k8sobject.OwnedBy(o, "extensions/v1beta1", "Deployment", opts.ownerName) ||
+			k8sobject.OwnedBy(o, "apps/v1beta1", "Deployment", opts.ownerName) ||
+			k8sobject.OwnedBy(o, "apps/v1beta1", "Deployment", opts.ownerName) ||
+			k8sobject.OwnedBy(o, "apps/v1", "Deployment", opts.ownerName)
+	case watchAll:
+		return true
+	default:
+		panic("Unknown watch type " + opts.watchType)
+	}
+}
+
 // Forever will watch a resource forever, emitting `watch.Event` until it is killed.
-func Forever(apiVersion, kind, objID string) (<-chan watch.Event, error) {
+func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
 	disco, pool, err := makeClient()
 	if err != nil {
 		return nil, err
@@ -41,12 +98,7 @@ func Forever(apiVersion, kind, objID string) (<-chan watch.Event, error) {
 
 	gvk := schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: strings.Title(kind)}
 
-	namespace, name, err := parseObjID(objID)
-	if err != nil {
-		return nil, err
-	}
-
-	clientForResource, err := client.FromGVK(pool, disco, gvk, namespace)
+	clientForResource, err := client.FromGVK(pool, disco, gvk, opts.namespace)
 	if err != nil {
 		return nil, err
 	}
@@ -65,7 +117,7 @@ func Forever(apiVersion, kind, objID string) (<-chan watch.Event, error) {
 				if !isUnst {
 					break
 				}
-				if o.GetName() == name {
+				if opts.Check(o) {
 					out <- e
 				}
 			}
@@ -106,15 +158,4 @@ func makeClient() (discovery.CachedDiscoveryInterface, dynamic.ClientPool, error
 	// apps, etc.)
 	pool := dynamic.NewClientPool(conf, mapper, pathresolver)
 	return discoCache, pool, nil
-}
-
-func parseObjID(objID string) (string, string, error) {
-	split := strings.Split(objID, "/")
-	if l := len(split); l == 1 {
-		return "default", split[0], nil
-	} else if l == 2 {
-		return split[0], split[1], nil
-	}
-	return "", "", fmt.Errorf(
-		"Object ID must be of the form <name> or <namespace>/<name>, got: %s", objID)
 }
