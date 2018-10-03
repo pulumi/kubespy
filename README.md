@@ -9,19 +9,19 @@ Kubernetes resource continuously until you kill it.
 
 ## Examples
 
+`kubespy trace deployment nginx` will "trace" the complex changes a complex Kubernetes resource
+makes in the cluster (in this case, a `Deployment` called `nginx`), and aggregate them into a
+high-level summary, which is updated in real time.
+
+![Changes](images/trace-deployment/trace-deployment-rollout.gif "Changes a Deployment rolls out a new change, in real time")
+
 `kubespy status v1 Pod nginx` will wait for a `Pod` called `nginx` to be created, and then continuously emit changes made to its `.status` field, as syntax-highlighted JSON diffs:
 
 ![Changes](images/status.gif "Changes a Pod undergoes as it starts, in real time")
 
-`kubespy trace service nginx` will "trace" the complex changes a complex Kubernetes resource makes
-in the cluster (in this case, a `Service` called `nginx`), and aggregate them into a high-level
-summary, which is updated in real time.
-
-![Changes](images/trace/trace-success.gif "Changes a Service undergoes as it starts, in real time")
-
 ## Installation
 
-Simply get the [latest release](https://github.com/pulumi/kubespy/releases), 
+Simply get the [latest release](https://github.com/pulumi/kubespy/releases),
 rename it to `kubespy`, run `chmod +x kubespy`, and move it in your path (can be /usr/local/bin).
 
 or
