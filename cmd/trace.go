@@ -47,7 +47,7 @@ var traceCmd = &cobra.Command{
 			traceDeployment(namespace, name)
 		default:
 			msg := "Unknown resource type '%s'. The following resources are available:\n" +
-				"  - service (aliases: {svc})" +
+				"  - service (aliases: {svc})\n" +
 				"  - deployment (aliases: {deploy})"
 			log.Fatalf(msg, t)
 		}
