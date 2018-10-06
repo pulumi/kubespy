@@ -21,6 +21,8 @@ high-level summary, which is updated in real time.
 
 ## Installation
 
+You can install kubespy in three ways:
+
 ### Binary
 
 Get the [latest release](https://github.com/pulumi/kubespy/releases),
