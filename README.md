@@ -21,16 +21,22 @@ high-level summary, which is updated in real time.
 
 ## Installation
 
-Simply get the [latest release](https://github.com/pulumi/kubespy/releases),
-rename it to `kubespy`, run `chmod +x kubespy`, and move it in your path (can be /usr/local/bin).
+### Binary
 
-or
+Get the [latest release](https://github.com/pulumi/kubespy/releases),
+rename it to `kubespy`, run `chmod +x kubespy` to make it executable and move it in your path (can be /usr/local/bin).
 
-Install:
+### Kubectl Plugin
 
--   [Go](https://golang.org/) version 1.11 or later
+Prerequisite: kubectl v1.12.0 or later
 
-Once the above are installed, run the following:
+With kubectl v1.12.0 introducing [easy pluggability](https://kubernetes.io/docs/tasks/extend-kubectl/kubectl-plugins/) of external functions, kubespy can be invoked as `kubectl spy` just by renaming it to `kubectl-spy` and having it available in your path.
+
+### via Golang
+
+Prerequisite: [Go](https://golang.org/) version 1.11 or later
+
+kubespy can be installed via golang by running the following:
 
 ```sh
 export GO111MODULE=on
@@ -38,8 +44,6 @@ export GO111MODULE=on
 # If $GOBIN is not on your path, you'll need to install the library elsewhere.
 go install github.com/pulumi/kubespy
 ```
-
-Following either way, you can then simply run `kubespy`.
 
 ## Usage
 
