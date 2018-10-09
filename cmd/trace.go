@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/fatih/color"
-	"github.com/gosuri/uilive"
+	"github.com/mbrlabs/uilive"
 	"github.com/pulumi/kubespy/print"
 	"github.com/pulumi/kubespy/watch"
 	"github.com/spf13/cobra"
