@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
-	"github.com/gosuri/uilive"
+	"github.com/mbrlabs/uilive"
 	"github.com/pulumi/kubespy/k8sobject"
 	"github.com/pulumi/kubespy/pods"
 	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
