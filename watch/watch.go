@@ -46,11 +46,9 @@ func ThisObject(namespace, name string) Opts {
 	return Opts{watchType: watchByName, namespace: namespace, name: name}
 }
 
-// ObjectsOwnedBy specifies a watch should look for objects owned by `ownerName`. Owner references
-// must refer to objects in the same namespace, so this function does not take `namespace` as an
-// argument.
-func ObjectsOwnedBy(ownerName string) Opts {
-	return Opts{watchType: watchByOwner, ownerName: ownerName}
+// ObjectsOwnedBy specifies a watch should look for objects owned by `ownerName` in `namespace`.
+func ObjectsOwnedBy(namespace, ownerName string) Opts {
+	return Opts{watchType: watchByOwner, namespace: namespace, ownerName: ownerName}
 }
 
 // Opts specifies which objects to watch for (e.g., "called this" or "owned by x").
