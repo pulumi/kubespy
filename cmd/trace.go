@@ -110,7 +110,7 @@ func traceDeployment(namespace, name string) {
 	}
 
 	replicaSetEvents, err := watch.Forever("extensions/v1beta1", "ReplicaSet",
-		watch.ObjectsOwnedBy(name))
+		watch.ObjectsOwnedBy(namespace, name))
 	if err != nil {
 		log.Fatal(err)
 	}
