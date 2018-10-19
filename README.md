@@ -44,7 +44,7 @@ kubespy can be installed via golang by running the following:
 export GO111MODULE=on
 
 # If $GOBIN is not on your path, you'll need to install the library elsewhere.
-go install github.com/pulumi/kubespy
+go get -u github.com/pulumi/kubespy
 ```
 
 ## Usage
