@@ -36,7 +36,7 @@ Once the above are installed, run the following:
 export GO111MODULE=on
 
 # If $GOBIN is not on your path, you'll need to install the library elsewhere.
-go install github.com/pulumi/kubespy
+go get -u github.com/pulumi/kubespy
 ```
 
 Following either way, you can then simply run `kubespy`.
