@@ -41,10 +41,11 @@ Prerequisite: [Go](https://golang.org/) version 1.11 or later
 kubespy can be installed via golang by running the following:
 
 ```sh
-export GO111MODULE=on
-
-# If $GOBIN is not on your path, you'll need to install the library elsewhere.
-go get -u github.com/pulumi/kubespy
+git clone git@github.com:pulumi/kubespy.git
+cd kubespy
+# If $GOPATH is not set, you can run `go build` instead, and then put in a
+# binary directory on your path
+GO111MODULE=on go install
 ```
 
 ## Usage
