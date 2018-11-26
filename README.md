@@ -21,7 +21,15 @@ high-level summary, which is updated in real time.
 
 ## Installation
 
-You can install kubespy in three ways:
+You can install kubespy in the following ways:
+
+### Homebrew (Mac)
+
+Prerequisite: [homebrew](https://docs.brew.sh/Installation)
+
+```bash
+brew install kubespy
+```
 
 ### Binary
 
