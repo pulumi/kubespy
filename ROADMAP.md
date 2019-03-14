@@ -41,9 +41,8 @@ use:
 the `Service` object itself, an `Endpoints` object of the same name that contains information about
 how to direct traffic to `Pod`s, and the `Pod`s themselves.
 
-Currently `kubespy trace` supports _only_ `Service`. But also of interest to our users are:
+Currently `kubespy trace` supports _only_ `Service` and `Deployment`. But also of interest to our users are:
 
--   `Deployment`
 -   `ReplicaSet`
 -   `Ingress`
 -   `StatefulSet`
