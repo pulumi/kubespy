@@ -72,7 +72,7 @@ Several more commands are planned as well.
 
 ## Examples
 
-For a concrete example you can run using either Pulumi or `kubectl`, check out [examples/trivial-pulumi-example](https://github.com/pulumi/kubespy/tree/master/examples/trivial-pulumi-example).
+For a concrete example you can run using either `Pulumi CLI` or `kubectl`, check out [examples/trivial-pulumi-example](https://github.com/pulumi/kubespy/tree/master/examples/trivial-pulumi-example).
 
 ## Features
 
