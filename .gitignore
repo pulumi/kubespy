@@ -9,3 +9,4 @@ Pulumi.*.yaml
 /go.sum
 kubespy
 releases
+.idea/
