@@ -59,6 +59,8 @@ var recordCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 
+		fmt.Print("[\n  ")
+
 		var last *unstructured.Unstructured
 		for {
 			select {
@@ -66,7 +68,9 @@ var recordCmd = &cobra.Command{
 				o := e.Object.(*unstructured.Unstructured)
 				switch e.Type {
 				case apiwatch.Added:
-					fmt.Println("[")
+					if last != nil {
+						fmt.Println(",")
+					}
 					fmt.Print("  ")
 
 					SetupCloseHandler()
@@ -79,7 +83,9 @@ var recordCmd = &cobra.Command{
 				case apiwatch.Modified:
 					diff := gojsondiff.New().CompareObjects(last.Object, o.Object)
 					if diff.Modified() {
-						fmt.Println(",")
+						if last != nil {
+							fmt.Println(",")
+						}
 						fmt.Print("  ")
 						if output, err := json.MarshalIndent(o.Object, "  ", "  "); err != nil {
 							log.Fatal(err)
