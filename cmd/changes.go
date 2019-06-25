@@ -11,6 +11,7 @@ import (
 	"github.com/yudai/gojsondiff"
 	"github.com/yudai/gojsondiff/formatter"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
+	apiwatch "k8s.io/apimachinery/pkg/watch"
 )
 
 func init() {
@@ -41,7 +42,8 @@ var changesCmd = &cobra.Command{
 			select {
 			case e := <-events:
 				o := e.Object.(*unstructured.Unstructured)
-				if last == nil {
+				switch e.Type {
+				case apiwatch.Added:
 					heading.Println("CREATED")
 
 					ojson, err := json.MarshalIndent(o.Object, "", "  ")
@@ -49,7 +51,7 @@ var changesCmd = &cobra.Command{
 						log.Fatal(err)
 					}
 					fmt.Println(color.GreenString(string(ojson)))
-				} else {
+				case apiwatch.Modified:
 					heading.Println(string(e.Type))
 
 					diff := gojsondiff.New().CompareObjects(last.Object, o.Object)
@@ -62,6 +64,8 @@ var changesCmd = &cobra.Command{
 						}
 						fmt.Println(text)
 					}
+				case apiwatch.Deleted:
+					heading.Println(string(e.Type))
 				}
 				last = o
 			}
