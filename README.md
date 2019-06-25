@@ -58,7 +58,7 @@ GO111MODULE=on go install
 
 ## Usage
 
-`kubespy` has three commands:
+`kubespy` has four commands:
 
 -   `status <apiVersion> <kind> [<namespace>/]<name>`, which in real time emits all changes made to
     the `.status` field of an arbitrary Kubernetes resource, as a JSON diff.
@@ -67,6 +67,8 @@ GO111MODULE=on go install
 -   `trace <kind> [<namespace>/]<name>`, which "traces" the changes a complex Kubernetes resource
     makes throughout a cluster, and aggregates them into a high-level summary, which is updated in
     real time.
+-   `record <apiVersion> <kind> [<namespace>/]<name>`, which in real time emits all changes to any
+    field in a Kubernetes resource, as a JSON array.
 
 Several more commands are planned as well.
 
