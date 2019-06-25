@@ -19,6 +19,8 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
 
 	"github.com/pulumi/kubespy/watch"
 	"github.com/spf13/cobra"
@@ -29,6 +31,17 @@ import (
 
 func init() {
 	rootCmd.AddCommand(recordCmd)
+}
+
+// SetupCloseHandler catches the ctrl+c signal and properly terminates the JSON array before exiting.
+func SetupCloseHandler() {
+	c := make(chan os.Signal, 2)
+	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		<-c
+		fmt.Println("\n]")
+		os.Exit(0)
+	}()
 }
 
 var recordCmd = &cobra.Command{
@@ -55,6 +68,9 @@ var recordCmd = &cobra.Command{
 				case apiwatch.Added:
 					fmt.Println("[")
 					fmt.Print("  ")
+
+					SetupCloseHandler()
+
 					if output, err := json.MarshalIndent(o.Object, "  ", "  "); err != nil {
 						log.Fatal(err)
 					} else {
