@@ -54,6 +54,7 @@ var recordCmd = &cobra.Command{
 				switch e.Type {
 				case apiwatch.Added:
 					fmt.Println("[")
+					fmt.Print("  ")
 					if output, err := json.MarshalIndent(o.Object, "  ", "  "); err != nil {
 						log.Fatal(err)
 					} else {
@@ -63,6 +64,7 @@ var recordCmd = &cobra.Command{
 					diff := gojsondiff.New().CompareObjects(last.Object, o.Object)
 					if diff.Modified() {
 						fmt.Println(",")
+						fmt.Print("  ")
 						if output, err := json.MarshalIndent(o.Object, "  ", "  "); err != nil {
 							log.Fatal(err)
 						} else {
