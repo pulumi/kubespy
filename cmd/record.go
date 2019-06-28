@@ -94,7 +94,7 @@ var recordCmd = &cobra.Command{
 						}
 					}
 				case apiwatch.Deleted:
-                    // Nothing to print.
+					// Nothing to print.
 				}
 				last = o
 			}
