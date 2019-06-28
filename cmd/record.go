@@ -71,7 +71,6 @@ var recordCmd = &cobra.Command{
 					if last != nil {
 						fmt.Println(",")
 					}
-					fmt.Print("  ")
 
 					SetupCloseHandler()
 
