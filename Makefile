@@ -7,12 +7,17 @@ VERSION_FLAGS   := -ldflags "-X github.com/pulumi/kubespy/version.Version=${VERS
 GO              ?= go
 GOMETALINTERBIN ?= gometalinter
 GOMETALINTER    :=${GOMETALINTERBIN} --config=Gometalinter.json
+GOMODULE = GO111MODULE=on
+GOPROXY = 'https://proxy.golang.org'
 
 TESTPARALLELISM := 10
 TESTABLE_PKGS   := ./...
 
+ensure::
+	$(GOMODULE) GOPROXY=$(GOPROXY) $(GO) mod tidy
+
 build::
-	$(GO) build $(VERSION_FLAGS) $(PROJECT)
+	$(GOMODULE) GOPROXY=$(GOPROXY) $(GO) build $(VERSION_FLAGS) $(PROJECT)
 
 rel-darwin::
 	GOOS=darwin GOARCH=386 $(GO) build -o releases/kubespy-darwin-386/kubespy $(VERSION_FLAGS) $(PROJECT)
@@ -36,10 +41,10 @@ lint::
 	$(GOMETALINTER) ./... | sort ; exit "$${PIPESTATUS[0]}"
 
 install::
-	$(GO) install $(VERSION_FLAGS) $(PROJECT)
+	$(GOMODULE) GOPROXY=$(GOPROXY) $(GO) install $(VERSION_FLAGS) $(PROJECT)
 
 test_all:: test_fast
-	$(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
+	$(GOMODULE) GOPROXY=$(GOPROXY) $(GO) test -v -cover -timeout 1h -parallel ${TESTPARALLELISM} $(TESTABLE_PKGS)
 
 .PHONY: check_clean_worktree
 check_clean_worktree:
