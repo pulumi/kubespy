@@ -87,3 +87,5 @@ require (
 	k8s.io/kube-openapi v0.0.0-20180731170545-e3762e86a74c // indirect
 	k8s.io/kubernetes v1.10.2 // indirect
 )
+
+go 1.13
