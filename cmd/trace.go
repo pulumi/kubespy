@@ -20,7 +20,7 @@ const (
 	v1Service                   = "v1/Service"
 	v1Pod                       = "v1/Pod"
 	deployment                  = "Deployment"
-	extensionsV1Beta1ReplicaSet = "extensions/v1beta1/ReplicaSet"
+	v1ReplicaSet                = "v1/ReplicaSet"
 )
 
 func init() {
@@ -103,13 +103,13 @@ func traceService(namespace, name string) {
 
 func traceDeployment(namespace, name string) {
 	// API server should rewrite this to apps/v1beta2, apps/v1beta2, or apps/v1 as appropriate.
-	deploymentEvents, err := watch.Forever("extensions/v1beta1", "Deployment",
+	deploymentEvents, err := watch.Forever("apps/v1", "Deployment",
 		watch.ThisObject(namespace, name))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	replicaSetEvents, err := watch.Forever("extensions/v1beta1", "ReplicaSet",
+	replicaSetEvents, err := watch.Forever("apps/v1", "ReplicaSet",
 		watch.ObjectsOwnedBy(namespace, name))
 	if err != nil {
 		log.Fatal(err)
@@ -150,9 +150,9 @@ func traceDeployment(namespace, name string) {
 			} else {
 				repSets[o.GetName()] = e
 			}
-			table[extensionsV1Beta1ReplicaSet] = []k8sWatch.Event{}
+			table[v1ReplicaSet] = []k8sWatch.Event{}
 			for _, rsEvent := range repSets {
-				table[extensionsV1Beta1ReplicaSet] = append(table[extensionsV1Beta1ReplicaSet], rsEvent)
+				table[v1ReplicaSet] = append(table[v1ReplicaSet], rsEvent)
 			}
 		case e := <-podEvents:
 			o := e.Object.(*unstructured.Unstructured)

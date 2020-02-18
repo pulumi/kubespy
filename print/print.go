@@ -17,11 +17,11 @@ import (
 )
 
 const (
-	v1Endpoints                 = "v1/Endpoints"
-	v1Service                   = "v1/Service"
-	v1Pod                       = "v1/Pod"
-	deployment                  = "Deployment"
-	extensionsV1Beta1ReplicaSet = "extensions/v1beta1/ReplicaSet"
+	v1Endpoints  = "v1/Endpoints"
+	v1Service    = "v1/Service"
+	v1Pod        = "v1/Pod"
+	deployment   = "Deployment"
+	v1ReplicaSet = "v1/ReplicaSet"
 
 	prefix = "\n       - "
 
@@ -196,7 +196,7 @@ func DeploymentWatchTable(w *uilive.Writer, table map[string][]k8sWatch.Event) {
 	}
 	var prevRepSet *unstructured.Unstructured
 	var prevRepSetSpec *repSet
-	if events, hasRs := table[extensionsV1Beta1ReplicaSet]; hasRs {
+	if events, hasRs := table[v1ReplicaSet]; hasRs {
 		for _, e := range events {
 			rs := e.Object.(*unstructured.Unstructured)
 			repSetRevision, err := parseRevision(rs)
