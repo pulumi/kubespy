@@ -2,10 +2,10 @@ package watch
 
 import (
 	"fmt"
-	"os"
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/pulumi/kubespy/k8sconfig"
 	"github.com/pulumi/kubespy/k8sobject"
 	"github.com/pulumi/pulumi-kubernetes/pkg/client"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -14,7 +14,6 @@ import (
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
-	"k8s.io/client-go/tools/clientcmd"
 
 	// Load auth plugins. Removing this will likely cause compilation error.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
@@ -126,14 +125,7 @@ func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
 }
 
 func makeClient() (discovery.CachedDiscoveryInterface, dynamic.ClientPool, error) {
-	// Use client-go to resolve the final configuration values for the client. Typically these
-	// values would would reside in the $KUBECONFIG file, but can also be altered in several
-	// places, including in env variables, client-go default values, and (if we allowed it) CLI
-	// flags.
-	overrides := &clientcmd.ConfigOverrides{}
-	loadingRules := clientcmd.NewDefaultClientConfigLoadingRules()
-	loadingRules.DefaultClientConfig = &clientcmd.DefaultClientConfig
-	kubeconfig := clientcmd.NewInteractiveDeferredLoadingClientConfig(loadingRules, overrides, os.Stdin)
+	kubeconfig := k8sconfig.New()
 
 	// Configure the discovery client.
 	conf, err := kubeconfig.ClientConfig()

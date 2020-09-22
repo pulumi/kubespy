@@ -5,6 +5,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/pulumi/kubespy/k8sconfig"
 	"github.com/spf13/cobra"
 )
 
@@ -23,7 +24,12 @@ func Execute() {
 func parseObjID(objID string) (namespace, name string, _ error) {
 	split := strings.Split(objID, "/")
 	if l := len(split); l == 1 {
-		return "default", split[0], nil
+		kubeconfig := k8sconfig.New()
+		ns, _, err := kubeconfig.Namespace()
+		if err != nil {
+			return "", "", err
+		}
+		return ns, split[0], nil
 	} else if l == 2 {
 		return split[0], split[1], nil
 	}
