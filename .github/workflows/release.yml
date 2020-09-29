@@ -2,7 +2,6 @@ name: release
 on:
   push:
     tags: [ "v*.[0-99]" ] # only a valid semver tag
-
 jobs:
   goreleaser:
     runs-on: ubuntu-latest
