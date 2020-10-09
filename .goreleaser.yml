@@ -9,7 +9,6 @@ builds:
       - -X github.com/pulumi/kubespy/version.Version={{.Tag}}
     goarch:
       - amd64
-      - 386
     binary: kubespy
     main: ./kubespy.go
 archives:
