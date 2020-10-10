@@ -1,19 +1,22 @@
 package watch
 
 import (
+	"context"
 	"fmt"
 	"strings"
 
 	"github.com/fatih/color"
 	"github.com/pulumi/kubespy/k8sconfig"
 	"github.com/pulumi/kubespy/k8sobject"
-	"github.com/pulumi/pulumi-kubernetes/pkg/client"
+	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/clients"
+	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
 	"k8s.io/client-go/dynamic"
+	"k8s.io/client-go/restmapper"
 
 	// Load auth plugins. Removing this will likely cause compilation error.
 	_ "k8s.io/client-go/plugin/pkg/client/auth"
@@ -83,7 +86,7 @@ func (opts *Opts) Check(o *unstructured.Unstructured) bool {
 
 // Forever will watch a resource forever, emitting `watch.Event` until it is killed.
 func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
-	disco, pool, err := makeClient()
+	client, mapper, err := makeClient()
 	if err != nil {
 		return nil, err
 	}
@@ -93,14 +96,13 @@ func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
 		return nil, err
 	}
 
-	gvk := schema.GroupVersionKind{Group: gv.Group, Version: gv.Version, Kind: strings.Title(kind)}
-
-	clientForResource, err := client.FromGVK(pool, disco, gvk, opts.namespace)
+	mapping, err := mapper.RESTMapping(schema.GroupKind{Group: gv.Group, Kind: strings.Title(kind)}, gv.Version)
 	if err != nil {
 		return nil, err
 	}
 
-	watcher, err := clientForResource.Watch(metav1.ListOptions{})
+	clientForResource := client.Resource(mapping.Resource).Namespace(opts.namespace)
+	watcher, err := clientForResource.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -124,7 +126,7 @@ func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
 	return out, nil
 }
 
-func makeClient() (discovery.CachedDiscoveryInterface, dynamic.ClientPool, error) {
+func makeClient() (dynamic.Interface, meta.RESTMapper, error) {
 	kubeconfig := k8sconfig.New()
 
 	// Configure the discovery client.
@@ -133,19 +135,16 @@ func makeClient() (discovery.CachedDiscoveryInterface, dynamic.ClientPool, error
 		return nil, nil, fmt.Errorf("Unable to read kubectl config: %v", err)
 	}
 
-	disco, err := discovery.NewDiscoveryClientForConfig(conf)
+	client, err := dynamic.NewForConfig(conf)
 	if err != nil {
 		return nil, nil, err
 	}
 
-	// Cache the discovery information (OpenAPI schema, etc.) so we don't have to retrieve it for
-	// every request.
-	discoCache := client.NewMemcachedDiscoveryClient(disco)
-	mapper := discovery.NewDeferredDiscoveryRESTMapper(discoCache, dynamic.VersionInterfaces)
-	pathresolver := dynamic.LegacyAPIPathResolverFunc
+	discoveryClient, err := discovery.NewDiscoveryClientForConfig(conf)
+	if err != nil {
+		return nil, nil, err
+	}
 
-	// Create client pool, reusing one client per API group (e.g., one each for core, extensions,
-	// apps, etc.)
-	pool := dynamic.NewClientPool(conf, mapper, pathresolver)
-	return discoCache, pool, nil
+	drm := restmapper.NewDeferredDiscoveryRESTMapper(clients.NewMemCacheClient(discoveryClient))
+	return client, drm, nil
 }
