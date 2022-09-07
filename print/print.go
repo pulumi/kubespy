@@ -11,7 +11,7 @@ import (
 	"github.com/mbrlabs/uilive"
 	"github.com/pulumi/kubespy/k8sobject"
 	"github.com/pulumi/kubespy/pods"
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	k8sWatch "k8s.io/apimachinery/pkg/watch"
 )
