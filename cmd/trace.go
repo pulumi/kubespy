@@ -16,11 +16,11 @@ import (
 )
 
 const (
-	v1Endpoints                 = "v1/Endpoints"
-	v1Service                   = "v1/Service"
-	v1Pod                       = "v1/Pod"
-	deployment                  = "Deployment"
-	v1ReplicaSet                = "v1/ReplicaSet"
+	v1Endpoints  = "v1/Endpoints"
+	v1Service    = "v1/Service"
+	v1Pod        = "v1/Pod"
+	deployment   = "Deployment"
+	v1ReplicaSet = "v1/ReplicaSet"
 )
 
 func init() {

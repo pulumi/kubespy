@@ -1,7 +1,7 @@
 package k8sobject
 
 import (
-	"github.com/pulumi/pulumi-kubernetes/provider/v2/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
