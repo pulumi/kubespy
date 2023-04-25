@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fatih/color"
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 )
 
