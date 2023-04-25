@@ -11,17 +11,17 @@ import (
 	"github.com/mbrlabs/uilive"
 	"github.com/pulumi/kubespy/k8sobject"
 	"github.com/pulumi/kubespy/pods"
-	"github.com/pulumi/pulumi-kubernetes/pkg/openapi"
+	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/openapi"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	k8sWatch "k8s.io/apimachinery/pkg/watch"
 )
 
 const (
-	v1Endpoints                 = "v1/Endpoints"
-	v1Service                   = "v1/Service"
-	v1Pod                       = "v1/Pod"
-	deployment                  = "Deployment"
-	extensionsV1Beta1ReplicaSet = "extensions/v1beta1/ReplicaSet"
+	v1Endpoints  = "v1/Endpoints"
+	v1Service    = "v1/Service"
+	v1Pod        = "v1/Pod"
+	deployment   = "Deployment"
+	v1ReplicaSet = "v1/ReplicaSet"
 
 	prefix = "\n       - "
 
@@ -196,7 +196,7 @@ func DeploymentWatchTable(w *uilive.Writer, table map[string][]k8sWatch.Event) {
 	}
 	var prevRepSet *unstructured.Unstructured
 	var prevRepSetSpec *repSet
-	if events, hasRs := table[extensionsV1Beta1ReplicaSet]; hasRs {
+	if events, hasRs := table[v1ReplicaSet]; hasRs {
 		for _, e := range events {
 			rs := e.Object.(*unstructured.Unstructured)
 			repSetRevision, err := parseRevision(rs)
