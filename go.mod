@@ -6,7 +6,7 @@ require (
 	github.com/fatih/color v1.13.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
 	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-20220901210459-0b37d2b30290
-	github.com/spf13/cobra v1.5.0
+	github.com/spf13/cobra v1.7.0
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.25.0
 	k8s.io/client-go v0.25.0
@@ -57,7 +57,7 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/hcl/v2 v2.14.0 // indirect
 	github.com/imdario/mergo v0.3.13 // indirect
-	github.com/inconshreveable/mousetrap v1.0.1 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
