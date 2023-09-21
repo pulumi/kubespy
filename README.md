@@ -44,16 +44,10 @@ With kubectl v1.12.0 introducing [easy pluggability](https://kubernetes.io/docs/
 
 ### via Golang
 
-Prerequisite: [Go](https://golang.org/) version 1.11 or later
-
-kubespy can be installed via golang by running the following:
+Prerequisite: [Go](https://golang.org/) version 1.19 or later
 
 ```sh
-git clone git@github.com:pulumi/kubespy.git
-cd kubespy
-# If $GOPATH is not set, you can run `go build` instead, and then put in a
-# binary directory on your path
-GO111MODULE=on go install
+go install github.com/pulumi/kubespy@latest
 ```
 
 ## Usage
