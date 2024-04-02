@@ -9,12 +9,13 @@ builds:
       - -X github.com/pulumi/kubespy/version.Version={{.Tag}}
     goarch:
       - amd64
+      - arm64
     binary: kubespy
     main: ./kubespy.go
 archives:
   - name_template: "{{ .Binary }}-{{ .Tag }}-{{ .Os }}-{{ .Arch }}"
 checksum:
-  name_template: 'checksums.txt'
+  name_template: "checksums.txt"
 snapshot:
   name_template: "{{ .Tag }}-next"
 changelog:
