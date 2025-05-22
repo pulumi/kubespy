@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/fatih/color v1.13.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v3 v3.0.0-20220901210459-0b37d2b30290
+	github.com/pulumi/pulumi-kubernetes/provider/v3 d99e7396707e
 	github.com/spf13/cobra v1.5.0
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.25.0
