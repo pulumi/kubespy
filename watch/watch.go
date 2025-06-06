@@ -8,7 +8,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/pulumi/kubespy/k8sconfig"
 	"github.com/pulumi/kubespy/k8sobject"
-	"github.com/pulumi/pulumi-kubernetes/provider/v3/pkg/clients"
+	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
 	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
