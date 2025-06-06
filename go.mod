@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/fatih/color v1.16.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20250501235726-7bad5eb56fd9
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20250606014652-5957b29e28d5
 	github.com/spf13/cobra v1.9.1
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.33.0
@@ -93,9 +93,9 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/esc v0.13.0 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.167.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.167.0 // indirect
+	github.com/pulumi/esc v0.14.2 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.174.0 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.174.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
@@ -128,7 +128,7 @@ require (
 	golang.org/x/tools v0.32.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20241209162323-e6fa225c2576 // indirect
 	google.golang.org/grpc v1.68.1 // indirect
-	google.golang.org/protobuf v1.36.5 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/evanphx/json-patch.v4 v4.12.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
