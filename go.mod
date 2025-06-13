@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/fatih/color v1.16.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20250612145030-b567d1b2d990
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20250613125217-b02c36a51128
 	github.com/spf13/cobra v1.9.1
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.33.0
@@ -31,7 +31,7 @@ require (
 	github.com/charmbracelet/bubbletea v0.25.0 // indirect
 	github.com/charmbracelet/lipgloss v0.7.1 // indirect
 	github.com/cheggaaa/pb v1.0.29 // indirect
-	github.com/cloudflare/circl v1.3.7 // indirect
+	github.com/cloudflare/circl v1.6.1 // indirect
 	github.com/containerd/console v1.0.4-0.20230313162750-1ae8d489ac81 // indirect
 	github.com/cyphar/filepath-securejoin v0.3.6 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
@@ -94,8 +94,8 @@ require (
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
 	github.com/pulumi/esc v0.14.2 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.176.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.176.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.177.0 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.177.0 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
