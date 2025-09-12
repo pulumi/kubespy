@@ -9,7 +9,6 @@ import (
 	"github.com/pulumi/kubespy/k8sconfig"
 	"github.com/pulumi/kubespy/k8sobject"
 	"github.com/pulumi/pulumi-kubernetes/provider/v4/pkg/clients"
-	"k8s.io/apimachinery/pkg/api/meta"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/apis/meta/v1/unstructured"
 	"k8s.io/apimachinery/pkg/runtime/schema"
@@ -86,7 +85,7 @@ func (opts *Opts) Check(o *unstructured.Unstructured) bool {
 
 // Forever will watch a resource forever, emitting `watch.Event` until it is killed.
 func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
-	client, mapper, err := makeClient()
+	clientSet, err := makeClientSet()
 	if err != nil {
 		return nil, err
 	}
@@ -96,12 +95,23 @@ func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
 		return nil, err
 	}
 
-	mapping, err := mapper.RESTMapping(schema.GroupKind{Group: gv.Group, Kind: strings.Title(kind)}, gv.Version)
+	mapping, err := clientSet.RESTMapper.RESTMapping(schema.GroupKind{Group: gv.Group, Kind: strings.Title(kind)}, gv.Version)
 	if err != nil {
 		return nil, err
 	}
 
-	clientForResource := client.Resource(mapping.Resource).Namespace(opts.namespace)
+	isNamespaced, err := clients.IsNamespacedKind(schema.GroupVersionKind{Group: gv.Group, Kind: strings.Title(kind), Version: gv.Version}, clientSet)
+	if err != nil {
+		return nil, err
+	}
+
+	var clientForResource dynamic.ResourceInterface
+	if !isNamespaced {
+		clientForResource = clientSet.GenericClient.Resource(mapping.Resource)
+	} else {
+		clientForResource = clientSet.GenericClient.Resource(mapping.Resource).Namespace(opts.namespace)
+	}
+
 	watcher, err := clientForResource.Watch(context.TODO(), metav1.ListOptions{})
 	if err != nil {
 		return nil, err
@@ -126,25 +136,29 @@ func Forever(apiVersion, kind string, opts Opts) (<-chan watch.Event, error) {
 	return out, nil
 }
 
-func makeClient() (dynamic.Interface, meta.RESTMapper, error) {
+func makeClientSet() (*clients.DynamicClientSet, error) {
 	kubeconfig := k8sconfig.New()
 
 	// Configure the discovery client.
 	conf, err := kubeconfig.ClientConfig()
 	if err != nil {
-		return nil, nil, fmt.Errorf("Unable to read kubectl config: %v", err)
+		return nil, fmt.Errorf("Unable to read kubectl config: %v", err)
 	}
 
 	client, err := dynamic.NewForConfig(conf)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	discoveryClient, err := discovery.NewDiscoveryClientForConfig(conf)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	drm := restmapper.NewDeferredDiscoveryRESTMapper(clients.NewMemCacheClient(discoveryClient))
-	return client, drm, nil
+	return &clients.DynamicClientSet{
+		GenericClient: client,
+		RESTMapper: drm,
+		DiscoveryClientCached: clients.NewMemCacheClient(discoveryClient),
+	}, nil
 }
