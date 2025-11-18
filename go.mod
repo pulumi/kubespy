@@ -7,7 +7,7 @@ toolchain go1.24.9
 require (
 	github.com/fatih/color v1.16.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20251117232221-bd500e41725e
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20251118025138-c1463132f3b2
 	github.com/spf13/cobra v1.10.1
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.33.3
