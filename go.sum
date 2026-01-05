@@ -251,10 +251,10 @@ github.com/pulumi/inflector v0.1.1 h1:dvlxlWtXwOJTUUtcYDvwnl6Mpg33prhK+7mzeF+Sob
 github.com/pulumi/inflector v0.1.1/go.mod h1:HUFCjcPTz96YtTuUlwG3i3EZG4WlniBvR9bd+iJxCUY=
 github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20251120071931-ce40d28ced59 h1:t8ncH4XXYkD9A9wbxZdub53RX24VLTnUIGzW3pPXeCM=
 github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20251120071931-ce40d28ced59/go.mod h1:PaonTGZcYfBRMkcaLcOtf0dfAAVrMNGdgNDIWzRo+Ms=
-github.com/pulumi/pulumi/pkg/v3 v3.214.0 h1:YTdU/VuVXP1Mk05FvCyTGO6+85DTuXacVoH2dhu8gRs=
-github.com/pulumi/pulumi/pkg/v3 v3.214.0/go.mod h1:HVYW1gwE3eGtHImAfCs/Ww0yyW0PujHpsAA8S3RGxoo=
-github.com/pulumi/pulumi/sdk/v3 v3.214.0 h1:MBUrjhaY7i9RmEQddyH/HR0kvF5Kxl3WT+/Ra9wV3YM=
-github.com/pulumi/pulumi/sdk/v3 v3.214.0/go.mod h1:Bn5Z9Rzp1lPqdAccaB+F2ivUBiamEl2TNR3Gg/h7iLs=
+github.com/pulumi/pulumi/pkg/v3 v3.214.1 h1:cijCDh4ogkDHqaWSoqCQQyd1LV6DSQz6DCp0UtMLGHE=
+github.com/pulumi/pulumi/pkg/v3 v3.214.1/go.mod h1:H4qigpfVeq6ggOAivUhdQxLkp/0upgzMKcCpK9NwatQ=
+github.com/pulumi/pulumi/sdk/v3 v3.214.1 h1:mzln0QPQGUu527LxaMEx0e37V6tG48r5CPAo5mn/bAk=
+github.com/pulumi/pulumi/sdk/v3 v3.214.1/go.mod h1:Bn5Z9Rzp1lPqdAccaB+F2ivUBiamEl2TNR3Gg/h7iLs=
 github.com/rivo/uniseg v0.1.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.2.0/go.mod h1:J6wj4VEh+S6ZtnVlnTBMWIodfgj8LQOQFoIToxlJtxc=
 github.com/rivo/uniseg v0.4.4 h1:8TfxU8dW6PdqD27gjM8MVNuicgxIjxpm4K7x4jp8sis=
