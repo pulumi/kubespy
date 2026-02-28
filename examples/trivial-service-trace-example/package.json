@@ -2,7 +2,7 @@
     "name": "nodeserver",
     "version": "0.1.0",
     "dependencies": {
-        "@pulumi/pulumi": "3.220.0"
+        "@pulumi/pulumi": "3.224.0"
     },
     "devDependencies": {
         "@types/node": "^9.3.0",
