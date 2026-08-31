@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Fetch secrets from ESC
         id: esc-secrets
-        uses: pulumi/esc-action@197ccaa42ab49560ce838a3010eb8345ce086896 # v1
+        uses: pulumi/esc-action@57e332b6dfb0d7edcf6cb813ee9a98b9665f12c2 # v3
       - name: Checkout
         uses: actions/checkout@v2
       - name: Unshallow clone
