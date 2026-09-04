@@ -278,8 +278,8 @@ github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 h1:vkHw5I/plNdTr435
 github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231/go.mod h1:murToZ2N9hNJzewjHBgfFdXhZKjY3z5cYC1VXk+lbFE=
 github.com/pulumi/inflector v0.2.1 h1:bqyiish3tq//vLeLiEstSFE5K7RNjy/ce47ed4QATu8=
 github.com/pulumi/inflector v0.2.1/go.mod h1:HUFCjcPTz96YtTuUlwG3i3EZG4WlniBvR9bd+iJxCUY=
-github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20260901193506-aaf05e0af4d4 h1:PtkmbAgnquu9xR5LLP9cyxDFh8NK9REGDMJwst3PMx8=
-github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20260901193506-aaf05e0af4d4/go.mod h1:UiR8CnVJWFakb1wbISdzTB9blASOulaubK0yOADPZKE=
+github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20260904215848-ace901062159 h1:XbjVTPzOp8O0eVNSb2EuwyvcsRtKWsyhHTM7PfVDE6M=
+github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20260904215848-ace901062159/go.mod h1:UiR8CnVJWFakb1wbISdzTB9blASOulaubK0yOADPZKE=
 github.com/pulumi/pulumi/pkg/v3 v3.261.0 h1:zEgiototJZc7EuGMSuzOpiY6QWRhNy8jzEIk3kjoNEc=
 github.com/pulumi/pulumi/pkg/v3 v3.261.0/go.mod h1:zycQHHw3JDSBSLUPNOFHnN3W9QOom8bB22Wq2+YVrc0=
 github.com/pulumi/pulumi/sdk/v3 v3.261.0 h1:1C2V6bxzO9UBe91PRebO/zeiUIQ2C05eRNkVFvJuuqc=
