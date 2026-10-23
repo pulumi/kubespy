@@ -107,9 +107,9 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/pulumi-cloud-sdk/go v1.20261021.0 // indirect
-	github.com/pulumi/pulumi/pkg/v3 v3.271.0 // indirect
-	github.com/pulumi/pulumi/sdk/v3 v3.271.0 // indirect
+	github.com/pulumi/pulumi-cloud-sdk/go v1.20261022.0 // indirect
+	github.com/pulumi/pulumi/pkg/v3 v3.272.0 // indirect
+	github.com/pulumi/pulumi/sdk/v3 v3.272.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 // indirect
