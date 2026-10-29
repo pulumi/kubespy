@@ -5,7 +5,7 @@ go 1.26.6
 require (
 	github.com/fatih/color v1.18.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261028071556-8fd5fb3b8386
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261028164351-42b259f96447
 	github.com/spf13/cobra v1.10.2
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.37.1
@@ -107,7 +107,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/pulumi-cloud-sdk/go v1.20261027.1310 // indirect
+	github.com/pulumi/pulumi-cloud-sdk/go v1.20261028.1310 // indirect
 	github.com/pulumi/pulumi/pkg/v3 v3.272.0 // indirect
 	github.com/pulumi/pulumi/sdk/v3 v3.272.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
