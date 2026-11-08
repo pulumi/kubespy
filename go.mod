@@ -5,7 +5,7 @@ go 1.26.10
 require (
 	github.com/fatih/color v1.18.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261105064649-b6267904aeb4
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261108185640-5b9d42b0c95a
 	github.com/spf13/cobra v1.10.2
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.37.1
@@ -49,7 +49,7 @@ require (
 	github.com/go-git/gcfg/v2 v2.0.2 // indirect
 	github.com/go-git/go-billy/v6 v6.0.0-beta.1 // indirect
 	github.com/go-git/go-git/v6 v6.0.0-beta.1 // indirect
-	github.com/go-jose/go-jose/v4 v4.1.6 // indirect
+	github.com/go-jose/go-jose/v4 v4.1.8 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-openapi/jsonpointer v1.0.2 // indirect
@@ -82,7 +82,7 @@ require (
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/kevinburke/ssh_config v1.6.0 // indirect
-	github.com/klauspost/compress v1.19.0 // indirect
+	github.com/klauspost/compress v1.20.2 // indirect
 	github.com/lucasb-eyer/go-colorful v1.4.1 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
@@ -107,7 +107,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/pulumi-cloud-sdk/go v1.20261105.0 // indirect
+	github.com/pulumi/pulumi-cloud-sdk/go v1.20261106.0 // indirect
 	github.com/pulumi/pulumi/pkg/v3 v3.274.1 // indirect
 	github.com/pulumi/pulumi/sdk/v3 v3.274.1 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
