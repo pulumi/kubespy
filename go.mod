@@ -5,7 +5,7 @@ go 1.26.10
 require (
 	github.com/fatih/color v1.18.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261108185640-5b9d42b0c95a
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261111065553-c2c73c5551da
 	github.com/spf13/cobra v1.10.2
 	github.com/yudai/gojsondiff v1.0.0
 	k8s.io/apimachinery v0.37.1
