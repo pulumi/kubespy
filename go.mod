@@ -5,11 +5,11 @@ go 1.26.10
 require (
 	github.com/fatih/color v1.18.0
 	github.com/mbrlabs/uilive v0.0.0-20170420192653-e481c8e66f15
-	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261116234636-596bd587d541
+	github.com/pulumi/pulumi-kubernetes/provider/v4 v4.0.0-20261117224646-b7ed66cb10b2
 	github.com/spf13/cobra v1.10.2
 	github.com/yudai/gojsondiff v1.0.0
-	k8s.io/apimachinery v0.37.1
-	k8s.io/client-go v0.37.1
+	k8s.io/apimachinery v0.37.2
+	k8s.io/client-go v0.37.2
 )
 
 require (
@@ -107,7 +107,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.1.0 // indirect
 	github.com/pulumi/appdash v0.0.0-20231130102222-75f619a67231 // indirect
-	github.com/pulumi/pulumi-cloud-sdk/go v1.20261116.1208 // indirect
+	github.com/pulumi/pulumi-cloud-sdk/go v1.20261117.1636 // indirect
 	github.com/pulumi/pulumi/pkg/v3 v3.276.0 // indirect
 	github.com/pulumi/pulumi/sdk/v3 v3.276.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
@@ -164,11 +164,11 @@ require (
 	gopkg.in/evanphx/json-patch.v4 v4.13.0 // indirect
 	gopkg.in/inf.v0 v0.9.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	k8s.io/api v0.37.1 // indirect
-	k8s.io/cli-runtime v0.37.1 // indirect
+	k8s.io/api v0.37.2 // indirect
+	k8s.io/cli-runtime v0.37.2 // indirect
 	k8s.io/klog/v2 v2.140.0 // indirect
 	k8s.io/kube-openapi v0.0.0-20260821135717-be32def86098 // indirect
-	k8s.io/kubectl v0.37.1 // indirect
+	k8s.io/kubectl v0.37.2 // indirect
 	k8s.io/utils v0.0.0-20260707023825-cf1189d6abe3 // indirect
 	lukechampine.com/frand v1.5.1 // indirect
 	sigs.k8s.io/json v0.0.0-20250730193827-2d320260d730 // indirect
